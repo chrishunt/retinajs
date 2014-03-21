@@ -27,9 +27,19 @@ describe('RetinaImagePath', function() {
   });
 
   describe('@at_2x_path', function(){
-    it('adds "@2x" before the extension', function(){
+    it('adds "@2x" before extension when extension at the end', function(){
       path = new RetinaImagePath("/path/to/image.png");
       path.at_2x_path.should.equal("/path/to/image@2x.png");
+    });
+
+    it('adds "@2x" before extension when domain in url', function(){
+      path = new RetinaImagePath("http://place.com/image.png");
+      path.at_2x_path.should.equal("http://place.com/image@2x.png");
+    });
+
+    it('adds "@2x" before extension when followed by parameter', function(){
+      path = new RetinaImagePath("/path/to/image.png?somevar=value");
+      path.at_2x_path.should.equal("/path/to/image@2x.png?somevar=value");
     });
   });
 
